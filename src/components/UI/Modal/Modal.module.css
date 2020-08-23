@@ -10,8 +10,16 @@
   top: 30%;
   box-sizing: border-box;
   transition: all 0.3s ease-out;
+}
+
+.DontShow {
   transform: translateY(-100vh);
   opacity: 0;
+}
+
+.Show {
+  transform: translateY(0);
+  opacity: 1;
 }
 
 @media (min-width: 600px) {
