@@ -20,8 +20,8 @@ class ContactData extends Component {
     this.setState({ loading: true });
     // testing connection to firebase
     const order = {
-      ingrdients: this.props.ingredients,
-      price: this.props.totalPrice,
+      ingredients: this.props.ingredients,
+      price: this.props.price,
       customer: {
         name: "John doe",
         address: {
