@@ -13,9 +13,10 @@ class ContactData extends Component {
       street: createInputField("street", "input", "text", "Street"),
       zipCode: createInputField("zipCode", "input", "text", "Zip Code"),
       country: createInputField("country", "input", "text", "Country"),
-      country: createInputField("email", "input", "text", "Your Email"),
+      email: createInputField("email", "input", "text", "Your Email"),
       deliverMethod: createInputField("deliverMethod", "select"),
     },
+    formIsValid: false,
     loading: false,
   };
 
@@ -40,6 +41,15 @@ class ContactData extends Component {
       .catch((err) => this.setState({ loading: false }));
   };
 
+  checkValidity(value, rules) {
+    let isValid = false;
+    if (rules.required) {
+      isValid = value.trim() !== "";
+    }
+
+    return isValid;
+  }
+
   inputChangedHandler = (e, inpuIdentifier) => {
     const updatedOrderForm = {
       ...this.state.orderForm,
@@ -48,8 +58,19 @@ class ContactData extends Component {
       ...updatedOrderForm[inpuIdentifier],
     };
     updatedFormElement.value = e.target.value;
+    updatedFormElement.valid = this.checkValidity(
+      updatedFormElement.value,
+      updatedFormElement.validation
+    );
+    updatedFormElement.touched = true;
     updatedOrderForm[inpuIdentifier] = updatedFormElement;
-    this.setState({ orderForm: updatedOrderForm });
+
+    let formIsValid = true;
+    for (let inputI in updatedOrderForm) {
+      formIsValid = updatedOrderForm[inputI].valid && formIsValid;
+    }
+
+    this.setState({ orderForm: updatedOrderForm, formIsValid });
   };
 
   render() {
@@ -64,14 +85,19 @@ class ContactData extends Component {
       <form onSubmit={this.orderHandler}>
         {formElementsArray.map((formElement) => (
           <Input
-            key={formElement.if}
+            key={formElement.id}
             elementType={formElement.config.elementType}
             elementConfig={formElement.config.elementConfig}
             value={formElement.config.value}
+            shouldValidate={formElement.config.validation}
+            invalid={!formElement.config.valid}
+            touched={formElement.config.touched}
             changed={(e) => this.inputChangedHandler(e, formElement.id)}
           />
         ))}
-        <Button btnType="Success">Order</Button>
+        <Button btnType="Success" disabled={!this.state.formIsValid}>
+          Order
+        </Button>
       </form>
     );
 

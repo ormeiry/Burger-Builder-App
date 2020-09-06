@@ -15,6 +15,10 @@ const createInputField = (
           { value: "cheapest", displayValue: "Cheapest" },
         ],
       },
+      valid: true,
+      validation: {
+        required: true,
+      },
     };
   } else {
     inputFieldData = {
@@ -24,6 +28,11 @@ const createInputField = (
         placeholder,
       },
       value: "",
+      validation: {
+        required: true,
+      },
+      valid: false,
+      touched: false,
     };
   }
 
