@@ -72,8 +72,8 @@ export const fetchOrders = () => {
             ...res.data[key],
             id: key,
           });
-          dispatch(fetchOrdersSuccess(fetchedOrders));
         }
+        dispatch(fetchOrdersSuccess(fetchedOrders));
       })
       .catch((err) => dispatch(fetchOrdersFail(err)));
   };
