@@ -16,6 +16,7 @@ const createInputField = (
         ],
       },
       valid: true,
+      value: "fastest",
       validation: {
         required: true,
       },
