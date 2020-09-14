@@ -16,7 +16,7 @@ class ContactData extends Component {
       street: createInputField("street", "input", "text", "Street"),
       zipCode: createInputField("zipCode", "input", "text", "Zip Code"),
       country: createInputField("country", "input", "text", "Country"),
-      email: createInputField("email", "input", "text", "Your Email"),
+      email: createInputField("email", "input", "email", "Your Email"),
       deliverMethod: createInputField("deliverMethod", "select"),
     },
     formIsValid: false,
