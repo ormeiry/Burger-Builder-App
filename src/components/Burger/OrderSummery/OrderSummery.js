@@ -14,7 +14,7 @@ const orderSummery = (props) => {
   return (
     <Auxiliary>
       <h3>Your Order</h3>
-      <p>A dekicious burger with the following ingredients:</p>
+      <p>A delicious burger with the following ingredients:</p>
       <ul>{ingredientSummry}</ul>
       <p>
         <strong>Total Price: {props.price.toFixed(2)}</strong>
