@@ -17,3 +17,5 @@
 - CSS Modules.
 
 There is a link attached above. have fun!.
+
+<img src="burger.png" alt="burger" width="700"/>
