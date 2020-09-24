@@ -14,8 +14,8 @@ const Orders = React.lazy(() => {
 const App = () => {
   let routes = (
     <Switch>
-      <Route path='/checkout' render={() => <Checkout />} />
-      <Route path='/orders' component={() => <Orders />} />
+      <Route path='/checkout' render={(props) => <Checkout {...props} />} />
+      <Route path='/orders' component={(props) => <Orders {...props} />} />
       <Route path='/' exact component={BurgerBuilder} />
     </Switch>
   );
