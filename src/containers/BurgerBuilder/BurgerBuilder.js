@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
-import Auxiliary from "../../hoc/Auxiliary/Auxiliary";
-import Burger from "../../components/Burger/Burger";
-import BuildControls from "../../components/Burger/BuildControls/BuildControls";
-import Modal from "../../components/UI/Modal/Modal";
-import OrderSummery from "../../components/Burger/OrderSummery/OrderSummery";
-import axios from "../../axios-orders";
-import Spinner from "../../components/UI/Spinner/Spinner";
-import withErrorHandler from "../../hoc/WithErrorHandler/WithErrorHandler";
-import * as actions from "../../store/actions/index";
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import Burger from '../../components/Burger/Burger';
+import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+import Modal from '../../components/UI/Modal/Modal';
+import OrderSummery from '../../components/Burger/OrderSummery/OrderSummery';
+import axios from '../../axios-orders';
+import Spinner from '../../components/UI/Spinner/Spinner';
+import withErrorHandler from '../../hoc/WithErrorHandler/WithErrorHandler';
+import * as actions from '../../store/actions/index';
 
 const BurgerBuilder = (props) => {
   const [purchasing, setPurchasing] = useState(false);
@@ -39,7 +38,7 @@ const BurgerBuilder = (props) => {
 
   const purchaseContinueHandler = () => {
     props.onInitPurchased();
-    props.history.push("/checkout");
+    props.history.push('/checkout');
   };
 
   const disabledInfo = {
@@ -55,7 +54,7 @@ const BurgerBuilder = (props) => {
 
   if (props.ings) {
     burger = (
-      <Auxiliary>
+      <>
         <Burger ingredients={props.ings} />
         <BuildControls
           ingredientAdded={props.onIngredientAdded}
@@ -65,7 +64,7 @@ const BurgerBuilder = (props) => {
           purchasable={updatePurchaseState(props.ings)}
           ordered={purchaseHandler}
         />
-      </Auxiliary>
+      </>
     );
     orderSummery = (
       <OrderSummery
@@ -78,12 +77,12 @@ const BurgerBuilder = (props) => {
   }
 
   return (
-    <Auxiliary>
+    <>
       <Modal show={purchasing} modalClosed={purchaseCancelHandler}>
         {orderSummery}
       </Modal>
       {burger}
-    </Auxiliary>
+    </>
   );
 };
 
