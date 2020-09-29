@@ -4,31 +4,28 @@ import { connect } from 'react-redux';
 import CheckoutSummery from '../../components/Order/CheckoutSummery/CheckoutSummery';
 import ContactData from './ContactData/ContactData';
 
-const Checkout = (props) => {
+const Checkout = ({ history, ings, purchased, match }) => {
   const checkoutCancelledHandler = () => {
-    props.history.goBack();
+    history.goBack();
   };
 
   const checkoutContinuedHandler = () => {
-    props.history.replace('/checkout/contact-data');
+    history.replace('/checkout/contact-data');
   };
 
   let summery = <Redirect to='/' />;
 
-  if (props.ings) {
-    const purchasedRedirect = props.purchased ? <Redirect to='/' /> : null;
+  if (ings) {
+    const purchasedRedirect = purchased ? <Redirect to='/' /> : null;
     summery = (
       <div>
         {purchasedRedirect}
         <CheckoutSummery
-          ingredients={props.ings}
+          ingredients={ings}
           checkoutCancelled={checkoutCancelledHandler}
           checkoutContinued={checkoutContinuedHandler}
         />
-        <Route
-          path={props.match.path + '/contact-data'}
-          component={ContactData}
-        />
+        <Route path={match.path + '/contact-data'} component={ContactData} />
       </div>
     );
   }

@@ -9,7 +9,7 @@ import createInputField from '../createInputField/createInputField';
 import withErrorHandler from '../../../hoc/WithErrorHandler/WithErrorHandler';
 import * as actions from '../../../store/actions/index';
 
-const ContactData = (props) => {
+const ContactData = ({ ings, price, loading, onOrderBurger }) => {
   const [orderForm, setOrderForm] = useState({
     name: createInputField('name', 'input', 'text', 'Your Name'),
     street: createInputField('street', 'input', 'text', 'Street'),
@@ -27,12 +27,12 @@ const ContactData = (props) => {
       formData[formElementI] = orderForm[formElementI].value;
     }
     const order = {
-      ingredients: props.ings,
-      price: props.price,
+      ingredients: ings,
+      price: price,
       orderData: formData,
     };
 
-    props.onOrderBurger(order);
+    onOrderBurger(order);
   };
 
   const checkValidity = (value, rules) => {
@@ -95,7 +95,7 @@ const ContactData = (props) => {
     </form>
   );
 
-  if (props.loading) {
+  if (loading) {
     form = <Spinner />;
   }
   return (

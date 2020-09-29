@@ -6,15 +6,15 @@ import axios from '../../axios-orders';
 import withErrorHandler from '../../hoc/WithErrorHandler/WithErrorHandler';
 import Spinner from '../../components/UI/Spinner/Spinner';
 
-const Orders = (props) => {
+const Orders = ({ onFetchOrders, orders, loading }) => {
   useEffect(() => {
-    props.onFetchOrders();
+    onFetchOrders();
     // eslint-disable-next-line
   }, []);
 
-  let orders = <Spinner />;
-  if (!props.loading) {
-    orders = props.orders.map((order) => (
+  let ordersList = <Spinner />;
+  if (!loading) {
+    ordersList = orders.map((order) => (
       <Order
         key={order.id}
         ingredients={order.ingredients}
@@ -22,7 +22,7 @@ const Orders = (props) => {
       />
     ));
   }
-  return <div>{orders}</div>;
+  return <div>{ordersList}</div>;
 };
 
 const mapStateToProps = (state) => {

@@ -9,11 +9,20 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/WithErrorHandler/WithErrorHandler';
 import * as actions from '../../store/actions/index';
 
-const BurgerBuilder = (props) => {
+const BurgerBuilder = ({
+  onInitPurchased,
+  onInitIngredients,
+  history,
+  ings,
+  price,
+  onIngredientAdded,
+  onIngredientRemoved,
+  error,
+}) => {
   const [purchasing, setPurchasing] = useState(false);
 
   useEffect(() => {
-    props.onInitIngredients();
+    onInitIngredients();
     // eslint-disable-next-line
   }, []);
 
@@ -37,12 +46,12 @@ const BurgerBuilder = (props) => {
   };
 
   const purchaseContinueHandler = () => {
-    props.onInitPurchased();
-    props.history.push('/checkout');
+    onInitPurchased();
+    history.push('/checkout');
   };
 
   const disabledInfo = {
-    ...props.ings,
+    ...ings,
   };
   for (let key in disabledInfo) {
     disabledInfo[key] = disabledInfo[key] <= 0;
@@ -50,26 +59,26 @@ const BurgerBuilder = (props) => {
 
   let orderSummery = null;
 
-  let burger = props.error ? <p>Ingrdients cant be loaded...</p> : <Spinner />;
+  let burger = error ? <p>Ingrdients cant be loaded...</p> : <Spinner />;
 
-  if (props.ings) {
+  if (ings) {
     burger = (
       <>
-        <Burger ingredients={props.ings} />
+        <Burger ingredients={ings} />
         <BuildControls
-          ingredientAdded={props.onIngredientAdded}
-          ingredientRemoved={props.onIngredientRemoved}
+          ingredientAdded={onIngredientAdded}
+          ingredientRemoved={onIngredientRemoved}
           disabled={disabledInfo}
-          price={props.price}
-          purchasable={updatePurchaseState(props.ings)}
+          price={price}
+          purchasable={updatePurchaseState(ings)}
           ordered={purchaseHandler}
         />
       </>
     );
     orderSummery = (
       <OrderSummery
-        price={props.price}
-        ingredients={props.ings}
+        price={price}
+        ingredients={ings}
         purchaseCancelled={purchaseCancelHandler}
         purchaseContinued={purchaseContinueHandler}
       />

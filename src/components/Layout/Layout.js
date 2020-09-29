@@ -3,7 +3,7 @@ import Toolbar from '../Navigation/Toolbar/Toolbar';
 import classes from './Layout.module.css';
 import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
 
-const Layout = (props) => {
+const Layout = ({ children }) => {
   const [showSideDrawer, setShowSideDrawer] = useState(false);
 
   const sideDrawerClosedHandler = () => {
@@ -18,7 +18,7 @@ const Layout = (props) => {
     <>
       <Toolbar drawerToggleClicked={sideDrawerToggleHandler} />
       <SideDrawer open={showSideDrawer} closed={sideDrawerClosedHandler} />
-      <main className={classes.Content}>{props.children}</main>
+      <main className={classes.Content}>{children}</main>
     </>
   );
 };
