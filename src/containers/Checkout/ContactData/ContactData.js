@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import Button from '../../../components/UI/Button/Button';
-import classes from './ContactData.module.css';
-import Spinner from '../../../components/UI/Spinner/Spinner';
-import axios from '../../../axios-orders';
-import Input from '../../../components/UI/Input/Input';
-import createInputField from '../createInputField/createInputField';
-import withErrorHandler from '../../../hoc/WithErrorHandler/WithErrorHandler';
-import * as actions from '../../../store/actions/index';
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import Button from "../../../components/UI/Button/Button";
+import { ContactDataStyle } from "./ContactData.module.css";
+import Spinner from "../../../components/UI/Spinner/Spinner";
+import axios from "../../../axios-orders";
+import Input from "../../../components/UI/Input/Input";
+import createInputField from "../createInputField/createInputField";
+import withErrorHandler from "../../../hoc/WithErrorHandler/WithErrorHandler";
+import * as actions from "../../../store/actions/index";
 
 const ContactData = ({ ings, price, loading, onOrderBurger }) => {
   const [orderForm, setOrderForm] = useState({
-    name: createInputField('name', 'input', 'text', 'Your Name'),
-    street: createInputField('street', 'input', 'text', 'Street'),
-    zipCode: createInputField('zipCode', 'input', 'text', 'Zip Code'),
-    country: createInputField('country', 'input', 'text', 'Country'),
-    email: createInputField('email', 'input', 'email', 'Your Email'),
-    deliverMethod: createInputField('deliverMethod', 'select'),
+    name: createInputField("name", "input", "text", "Your Name"),
+    street: createInputField("street", "input", "text", "Street"),
+    zipCode: createInputField("zipCode", "input", "text", "Zip Code"),
+    country: createInputField("country", "input", "text", "Country"),
+    email: createInputField("email", "input", "email", "Your Email"),
+    deliverMethod: createInputField("deliverMethod", "select"),
   });
   const [formIsValid, setFormIsValid] = useState(false);
 
@@ -38,7 +38,7 @@ const ContactData = ({ ings, price, loading, onOrderBurger }) => {
   const checkValidity = (value, rules) => {
     let isValid = false;
     if (rules.required) {
-      isValid = value.trim() !== '';
+      isValid = value.trim() !== "";
     }
 
     return isValid;
@@ -77,19 +77,19 @@ const ContactData = ({ ings, price, loading, onOrderBurger }) => {
   }
   let form = (
     <form onSubmit={orderHandler}>
-      {formElementsArray.map((formElement) => (
+      {formElementsArray.map(({ id, config }) => (
         <Input
-          key={formElement.id}
-          elementType={formElement.config.elementType}
-          elementConfig={formElement.config.elementConfig}
-          value={formElement.config.value}
-          shouldValidate={formElement.config.validation}
-          invalid={!formElement.config.valid}
-          touched={formElement.config.touched}
-          changed={(e) => inputChangedHandler(e, formElement.id)}
+          key={id}
+          elementType={config.elementType}
+          elementConfig={config.elementConfig}
+          value={config.value}
+          shouldValidate={config.validation}
+          invalid={!config.valid}
+          touched={config.touched}
+          changed={(e) => inputChangedHandler(e, id)}
         />
       ))}
-      <Button btnType='Success' disabled={!formIsValid}>
+      <Button btnType="Success" disabled={!formIsValid}>
         Order
       </Button>
     </form>
@@ -99,7 +99,7 @@ const ContactData = ({ ings, price, loading, onOrderBurger }) => {
     form = <Spinner />;
   }
   return (
-    <div className={classes.ContactData}>
+    <div className={ContactDataStyle}>
       <h4>Enter Your Contact Data</h4>
       {form}
     </div>

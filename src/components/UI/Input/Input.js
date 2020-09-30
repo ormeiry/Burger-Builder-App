@@ -1,22 +1,31 @@
 import React from "react";
-import classes from "./Input.module.css";
+import { InputElement, Invalid, Input, Label } from "./Input.module.css";
 
-const input = (props) => {
+const input = ({
+  invalid,
+  shouldValidate,
+  touched,
+  elementType,
+  elementConfig,
+  value,
+  changed,
+  label,
+}) => {
   let inputElement = null;
-  const inputClasses = [classes.InputElement];
+  const inputClasses = [InputElement];
 
-  if (props.invalid && props.shouldValidate && props.touched) {
-    inputClasses.push(classes.Invalid);
+  if (invalid && shouldValidate && touched) {
+    inputClasses.push(Invalid);
   }
 
-  switch (props.elementType) {
+  switch (elementType) {
     case "input":
       inputElement = (
         <input
           className={inputClasses.join(" ")}
-          {...props.elementConfig}
-          value={props.value}
-          onChange={props.changed}
+          {...elementConfig}
+          value={value}
+          onChange={changed}
         />
       );
       break;
@@ -24,9 +33,9 @@ const input = (props) => {
       inputElement = (
         <textarea
           className={inputClasses.join(" ")}
-          {...props.elementConfig}
-          value={props.value}
-          onChange={props.changed}
+          {...elementConfig}
+          value={value}
+          onChange={changed}
         />
       );
       break;
@@ -34,10 +43,10 @@ const input = (props) => {
       inputElement = (
         <select
           className={inputClasses.join(" ")}
-          value={props.value}
-          onChange={props.changed}
+          value={value}
+          onChange={changed}
         >
-          {props.elementConfig.options.map((option) => (
+          {elementConfig.options.map((option) => (
             <option key={option.value} value={option.value}>
               {option.displayValue}
             </option>
@@ -48,17 +57,17 @@ const input = (props) => {
     default:
       inputElement = (
         <input
-          className={classes.InputElement}
-          {...props.elementConfig}
-          value={props.value}
-          onChange={props.changed}
+          className={InputElement}
+          {...elementConfig}
+          value={value}
+          onChange={changed}
         />
       );
   }
 
   return (
-    <div className={classes.Input}>
-      <label className={classes.Label}>{props.label}</label>
+    <div className={Input}>
+      <label className={Label}>{label}</label>
       {inputElement}
     </div>
   );

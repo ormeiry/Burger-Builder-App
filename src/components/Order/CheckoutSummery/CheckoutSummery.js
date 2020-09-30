@@ -1,19 +1,23 @@
 import React from "react";
 import Burger from "../../Burger/Burger";
 import Button from "../../UI/Button/Button";
-import classes from "./CheckoutSummery.module.css";
+import { CheckoutSummery } from "./CheckoutSummery.module.css";
 
-const checkoutSummery = (props) => {
+const checkoutSummery = ({
+  ingredients,
+  checkoutCancelled,
+  checkoutContinued,
+}) => {
   return (
-    <div className={classes.CheckoutSummery}>
+    <div className={CheckoutSummery}>
       <h1>Have Fun</h1>
       <div style={{ width: "100%", margin: "auto" }}>
-        <Burger ingredients={props.ingredients} />
+        <Burger ingredients={ingredients} />
       </div>
-      <Button btnType="Danger" clicked={props.checkoutCancelled}>
+      <Button btnType="Danger" clicked={checkoutCancelled}>
         Cancel
       </Button>
-      <Button btnType="Success" clicked={props.checkoutContinued}>
+      <Button btnType="Success" clicked={checkoutContinued}>
         Continue
       </Button>
     </div>

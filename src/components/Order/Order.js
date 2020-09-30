@@ -1,8 +1,8 @@
 import React from "react";
-import classes from "./Order.module.css";
+import { Order } from "./Order.module.css";
 
-const order = (props) => {
-  const ingredients = Object.keys(props.ingredients).map((inKey) => {
+const order = ({ ingredients, price }) => {
+  const ingredientsList = Object.keys(ingredients).map((inKey) => {
     return (
       <li
         key={inKey}
@@ -13,17 +13,17 @@ const order = (props) => {
           border: "1px solid #ccc",
           padding: "5px",
         }}
-      >{`${inKey}: ${props.ingredients[inKey]}`}</li>
+      >{`${inKey}: ${ingredients[inKey]}`}</li>
     );
   });
   return (
-    <div className={classes.Order}>
+    <div className={Order}>
       <ul>
         <h4>Ingredients:</h4>
-        {ingredients}
+        {ingredientsList}
       </ul>
       <p>
-        Price: <strong>USD {props.price.toFixed(2)}</strong>
+        Price: <strong>USD {price.toFixed(2)}</strong>
       </p>
     </div>
   );

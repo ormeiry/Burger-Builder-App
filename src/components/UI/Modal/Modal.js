@@ -1,18 +1,13 @@
-import React from 'react';
-import classes from './Modal.module.css';
-import Backdrop from '../Backdrop/Backdrop';
+import React from "react";
+import { Show, DontShow, ModalStyle } from "./Modal.module.css";
+import Backdrop from "../Backdrop/Backdrop";
 
-const Modal = React.memo((props) => {
+const Modal = React.memo(({ show, modalClosed, children }) => {
   return (
     <>
-      <Backdrop show={props.show} clicked={props.modalClosed} />
-      <div
-        className={[
-          classes.Modal,
-          props.show ? classes.Show : classes.DontShow,
-        ].join(' ')}
-      >
-        {props.children}
+      <Backdrop show={show} clicked={modalClosed} />
+      <div className={[ModalStyle, show ? Show : DontShow].join(" ")}>
+        {children}
       </div>
     </>
   );
