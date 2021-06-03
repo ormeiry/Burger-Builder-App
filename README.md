@@ -18,4 +18,6 @@
 
 There is a link attached above. have fun!.
 
+It might not work sometimes do to firebase problems.
+
 <img src="burger.png" alt="burger" width="700"/>
